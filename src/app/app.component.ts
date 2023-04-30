@@ -15,38 +15,50 @@ export class AppComponent {
   numberOfGames = 0;
   totalNumberOfGames: number = 0;
 
-  selectedValue = 'option1';
+  //selectedValue = 'option1';
 
   constructor(private gameService: GameService, private http: HttpClient) {}
 
   ngOnInit(): void {}
 
-  getGames(): void {
+  // For select opening
+  selectedOpening = 'All openings';
+  onSelectedOpening(opening: string, color: string): void {
+    //this.selectedOpening = opening;
+    //alert(this.selectedOpening + ' ' + this.selectedColor);
+    this.getGames(opening, color);
+  }
+
+  // For select opening
+  selectedColor = 'All games';
+  onSelectedColor(opening: string, color: string): void {
+    //this.selectedColor = color;
+    //alert(this.selectedOpening + ' ' + this.selectedColor);
+    this.getGames(opening, color);
+  }
+
+  getGames(opening: string, color: string): void {
     // call the service
-    this.gameService.getGames(this.selectedOpening).subscribe((result) => {
-      this.gamesResult = result;
-      this.totalNumberOfGames =
-        result.numberOfGamesWonWithWhite +
-        result.numberOfGamesDrawnWithWhite +
-        result.numberOfGamesLostWithWhite +
-        result.numberOfGamesWonWithBlack +
-        result.numberOfGamesDrawnWithBlack +
-        result.numberOfGamesLostWithBlack;
-    });
+    //alert(opening + ' ' + color);
+    this.gameService
+      //.getGames(this.selectedOpening, this.selectedColor)
+      .getGames(opening, color)
+      .subscribe((result) => {
+        this.gamesResult = result;
+        this.totalNumberOfGames =
+          result.numberOfGamesWonWithWhite +
+          result.numberOfGamesDrawnWithWhite +
+          result.numberOfGamesLostWithWhite +
+          result.numberOfGamesWonWithBlack +
+          result.numberOfGamesDrawnWithBlack +
+          result.numberOfGamesLostWithBlack;
+      });
   }
 
-  selectedOpening = '';
-  onSelected(opening: string): void {
-    this.selectedOpening = opening;
-    this.getGames();
-    console.log(this.selectedOpening);
-  }
-
+  // For upload file
   fileName = '';
-
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
-
     if (file) {
       this.fileName = file.name;
 
@@ -58,7 +70,6 @@ export class AppComponent {
         'https://localhost:7170/api/upload',
         formData
       );
-
       upload$.subscribe();
     }
   }

@@ -11,7 +11,7 @@ export class GameService {
   private url = 'Game';
   constructor(private http: HttpClient) {}
 
-  public getGames(opening: string): Observable<Game> {
+  public getGames(opening: string, color: string): Observable<Game> {
     return this.http.get<Game>(
       `${environment.apiUrl}/${this.url}?opening=${opening}`
     );
