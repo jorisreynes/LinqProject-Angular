@@ -72,6 +72,14 @@
           <option>Black</option>
         </select>
 
+        <select #time (change)="onTimeSelected(time.value)">
+          <option default value="0">All times</option>
+          <option value="120+1">2+1</option>
+          <option value="180+2">3+2</option>
+          <option>5+0</option>
+          <option>10</option>
+        </select>
+
         <select #endgame (change)="onEndgameSelected(endgame.value)">
           <option default>All end of game</option>
           <option>Checkmate</option>

@@ -14,10 +14,11 @@ export class GameService {
   public getGames(
     opening: string,
     color: string,
+    time: string,
     endgame: string
   ): Observable<Game> {
     return this.http.get<Game>(
-      `${environment.apiUrl}/${this.url}?opening=${opening}&color=${color}&endgame=${endgame}`
+      `${environment.apiUrl}/${this.url}?opening=${opening}&color=${color}&time=${time}&endgame=${endgame}`
     );
   }
 }

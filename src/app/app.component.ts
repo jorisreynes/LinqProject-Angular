@@ -15,8 +15,6 @@ export class AppComponent {
   numberOfGames = 0;
   totalNumberOfGames: number = 0;
 
-  selectedValue = 'option1';
-
   constructor(private gameService: GameService, private http: HttpClient) {}
 
   ngOnInit(): void {
@@ -26,7 +24,12 @@ export class AppComponent {
   getGames(): void {
     // call the service
     this.gameService
-      .getGames(this.selectedOpening, this.selectedColor, this.selectedEndgame)
+      .getGames(
+        this.selectedOpening,
+        this.selectedColor,
+        this.selectedTime,
+        this.selectedEndgame
+      )
       .subscribe((result) => {
         this.gamesResult = result;
         this.totalNumberOfGames =
@@ -45,6 +48,12 @@ export class AppComponent {
   selectedColor = 'All colors';
   onColorSelected(color: string): void {
     this.selectedColor = color;
+    this.getGames();
+  }
+
+  selectedTime = '0';
+  onTimeSelected(time: string): void {
+    this.selectedTime = time;
     this.getGames();
   }
 
